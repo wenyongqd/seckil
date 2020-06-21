@@ -48,6 +48,7 @@
 <script th:src="@{/js/messages_zh.min.js}"></script>
 <script th:src="@{/js/additional-methods.min.js}"></script>
 <script th:src="@{/js/jquery.md5.js}"></script>
+
 <script type="text/javascript">
     $("#registerForm").validate({
         rules: {
@@ -56,7 +57,7 @@
             // compound rule
             password: {
                 required: true,
-                minLength: 6
+                minlength: 6,
             },
             repassword: {
                 equalTo: "#password"

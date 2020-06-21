@@ -1,54 +1,49 @@
 package com.codemaster.seckil.controller;
 
+import com.codemaster.seckil.base.controller.BaseApiController;
 import com.codemaster.seckil.model.User;
 import com.codemaster.seckil.service.UserService;
+import com.codemaster.seckil.util.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
-@Controller
-public class RegisterController {
+@RestController
+public class RegisterController extends BaseApiController {
 
     private static Logger log = LoggerFactory.getLogger(RegisterController.class);
 
     @Autowired
     public UserService userService;
 
-    @RequestMapping(value = "/reg", method = RequestMethod.GET)
-    public ModelAndView toRegister(ModelMap model) {
-        User user = new User();
-        return new ModelAndView("register").addObject(user);
+    @RequestMapping(value="/reg", method=RequestMethod.GET)
+    public String toRegister(Model model){
+        model.addAttribute("user",new User());
+        return "register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(@ModelAttribute(value = "user") @Valid User user, BindingResult bindingResult) {
-
-
-
+    @PostMapping(value="/register")
+    public ModelAndView register(@ModelAttribute(value="user") @Valid User user, BindingResult bindingResult){
         log.info("username="+user.getUsername()+";password="+user.getPassword());
-
-        if(bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors()){
             return new ModelAndView("register");
         }
+        String salt = "alex";
+        String newPassword = MD5Util.formToDB(user.getPassword(), salt);
         user.setId(2018);
+        user.setPassword(newPassword);
+        user.setDbflag(salt);
         userService.regist(user);
         return new ModelAndView("register");
-//        User newUser = userService.regist(user);
-//        if(newUser != null) {
-//            return new ModelAndView("home");
-//        } else {
-//            return new ModelAndView("regiser");
-//        }
-    }
 
+    }
 }
+

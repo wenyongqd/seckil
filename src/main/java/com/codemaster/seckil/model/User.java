@@ -2,10 +2,14 @@ package com.codemaster.seckil.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
+
+
+    private static final long serialVersionUID = 5371500855041561834L;
 
     @Id
     @Column(name = "username")
@@ -19,6 +23,9 @@ public class User {
     @Column(name = "id",nullable = false)
     private long id;
 
+    @Column(name = "dbflag")
+    private String dbflag;
+
     private String repassword;
 
     public void setId(long id) {
@@ -31,6 +38,15 @@ public class User {
 
     public void setRepassword(String repassword) {
         this.repassword = repassword;
+    }
+
+
+    public String getDbflag() {
+        return dbflag;
+    }
+
+    public void setDbflag(String dbflag) {
+        this.dbflag = dbflag;
     }
 
     public long getId() {

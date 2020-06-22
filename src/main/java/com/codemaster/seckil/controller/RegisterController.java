@@ -24,14 +24,14 @@ public class RegisterController extends BaseApiController {
     @Autowired
     public UserService userService;
 
-    @RequestMapping(value="/reg", method=RequestMethod.GET)
-    public String toRegister(Model model){
-        model.addAttribute("user",new User());
-        return "register";
-    }
+//    @RequestMapping(value="/reg", method=RequestMethod.GET)
+//    public String toRegister(Model model){
+//        model.addAttribute("user",new User());
+//        return "register";
+//    }
 
-    @PostMapping(value="/register")
-    public ModelAndView register(@ModelAttribute(value="user") @Valid User user, BindingResult bindingResult){
+    @RequestMapping("/register")
+    public ModelAndView register(@ModelAttribute(value="user") @Valid @RequestBody User user, BindingResult bindingResult){
         log.info("username="+user.getUsername()+";password="+user.getPassword());
         if(bindingResult.hasErrors()){
             return new ModelAndView("register");

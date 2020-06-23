@@ -28,6 +28,7 @@ public class SeckillAPIController extends BaseApiController implements Initializ
     @RequestMapping(value="{path}/seckill/{courseNo}",method= RequestMethod.GET)
     public Result<Orders> seckill(User user, @PathVariable String courseNo, @PathVariable String path, HttpServletRequest request){
         if(user == null){
+            System.out.println("失败失败失败失败失败失败失败失败失败");
             return Result.failure();
         }
         System.out.println("========================");
@@ -53,7 +54,7 @@ public class SeckillAPIController extends BaseApiController implements Initializ
     @RequestMapping(value="getPath/{courseNo}",method=RequestMethod.GET)
     public String getPath(User user, @PathVariable String courseNo){
         if(user == null){
-
+            System.out.println("空空空空空空空空空空空空空空空空空空空空空空");
         }
         return seckillService.getPath(user, courseNo);
     }

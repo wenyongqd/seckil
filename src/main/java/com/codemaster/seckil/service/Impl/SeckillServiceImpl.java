@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class SeckillServiceImpl implements ISeckillService {
     @Autowired
     public CourseRedis courseRedis;
 
-    @Autowired
+    @Resource
     public SeckillRedis seckillRedis;
 
 
@@ -101,7 +102,8 @@ public class SeckillServiceImpl implements ISeckillService {
             return;
         }
         for(Course course : courseList){
-            courseRedis.putString(course.getCourseNo(), course.getStockQuantity(), 60, true);
+            System.out.println(course.getCourseNo() +":" +course.getStockQuantity());
+            courseRedis.putString(course.getCourseNo(), course.getStockQuantity(), 60, false);
             courseRedis.put(course.getCourseNo(), course, -1);
             isSeckill.put(course.getCourseNo(), false);
         }
@@ -124,7 +126,10 @@ public class SeckillServiceImpl implements ISeckillService {
 
     @Override
     public String getPath(User user, String courseNo) {
+        System.out.println("开始开始开始开始开始开始开始开始开始开始开始开始开始");
         String path = UUIDUtil.getUUID();
+        System.out.println(path);
+        System.out.println(user.getUsername());
         seckillRedis.putString("path"+"_"+courseNo+"_"+user.getUsername(), path, 60);
         return path;
     }
@@ -168,7 +173,7 @@ public class SeckillServiceImpl implements ISeckillService {
         String ip = IpUtil.getIpAddr(request);
 
         System.out.println(ip);
-        if(seckillRedis.incr(ip, 1) >= 3){
+        if(seckillRedis.incr(ip, 1) >= 55){
             return Result.failure(ResultCode.SECKILL_IP_OUTMAX);
         }
 

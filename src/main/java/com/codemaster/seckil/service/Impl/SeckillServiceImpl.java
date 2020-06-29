@@ -5,6 +5,7 @@ import com.codemaster.seckil.base.result.ResultCode;
 import com.codemaster.seckil.model.Course;
 import com.codemaster.seckil.model.Orders;
 import com.codemaster.seckil.model.User;
+import com.codemaster.seckil.redis.BaseRedis;
 import com.codemaster.seckil.redis.CourseRedis;
 import com.codemaster.seckil.redis.SeckillRedis;
 import com.codemaster.seckil.service.ICourseService;
@@ -25,9 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Service
 @Transactional
-public class SeckillServiceImpl implements ISeckillService {
+public class SeckillServiceImpl implements ISeckillService{
 
     @Autowired
     public ICourseService courseService;
@@ -38,7 +40,7 @@ public class SeckillServiceImpl implements ISeckillService {
     @Autowired
     public CourseRedis courseRedis;
 
-    @Resource
+    @Autowired
     public SeckillRedis seckillRedis;
 
 
@@ -102,7 +104,6 @@ public class SeckillServiceImpl implements ISeckillService {
             return;
         }
         for(Course course : courseList){
-            System.out.println(course.getCourseNo() +":" +course.getStockQuantity());
             courseRedis.putString(course.getCourseNo(), course.getStockQuantity(), 60, false);
             courseRedis.put(course.getCourseNo(), course, -1);
             isSeckill.put(course.getCourseNo(), false);
@@ -126,10 +127,7 @@ public class SeckillServiceImpl implements ISeckillService {
 
     @Override
     public String getPath(User user, String courseNo) {
-        System.out.println("开始开始开始开始开始开始开始开始开始开始开始开始开始");
         String path = UUIDUtil.getUUID();
-        System.out.println(path);
-        System.out.println(user.getUsername());
         seckillRedis.putString("path"+"_"+courseNo+"_"+user.getUsername(), path, 60);
         return path;
     }
@@ -173,7 +171,7 @@ public class SeckillServiceImpl implements ISeckillService {
         String ip = IpUtil.getIpAddr(request);
 
         System.out.println(ip);
-        if(seckillRedis.incr(ip, 1) >= 55){
+        if(seckillRedis.incr(ip, 1) >= 10){
             return Result.failure(ResultCode.SECKILL_IP_OUTMAX);
         }
 
@@ -189,7 +187,7 @@ public class SeckillServiceImpl implements ISeckillService {
             return Result.failure(ResultCode.SECKILL_NO_QUOTE);
         }
         //判断库存redis 预减库存
-        double stockQuantity = courseRedis.decr(courseNo, -1);
+        double stockQuantity = courseRedis.decr(courseNo, 1);
         if(stockQuantity <= 0){
             isSeckill.put(courseNo, true);
             return Result.failure(ResultCode.SECKILL_NO_QUOTE);

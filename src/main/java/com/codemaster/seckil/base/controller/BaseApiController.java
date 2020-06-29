@@ -4,6 +4,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/api")
-@CrossOrigin(origins = "*", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
 public class BaseApiController {
 }

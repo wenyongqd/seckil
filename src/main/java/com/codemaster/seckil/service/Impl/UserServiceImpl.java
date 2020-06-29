@@ -8,8 +8,11 @@ import com.codemaster.seckil.repository.UserRepository;
 import com.codemaster.seckil.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 @Service
 @Transactional
@@ -52,5 +55,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public Object getUserFromRedisByToken(String token) {
         return userRedis.get(token);
+    }
+
+    @Override
+    public User saveUser(User newUser) {
+
+        newUser.setUsername(newUser.getUsername());
+        newUser.setPassword(newUser.getPassword());
+        return userRepository.save(newUser);
+
     }
 }

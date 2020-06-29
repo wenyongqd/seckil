@@ -9,6 +9,8 @@ public interface UserService {
 
     public UserVO getUser(String username);
 
+    public User saveUser(User user);
+
     void saveUserToRedisByToken(UserVO userVO, String token);
 
     Object getUserFromRedisByToken(String token);

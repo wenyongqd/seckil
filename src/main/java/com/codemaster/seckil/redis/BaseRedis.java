@@ -1,6 +1,7 @@
 package com.codemaster.seckil.redis;
 
 import com.alibaba.fastjson.JSON;
+import com.codemaster.seckil.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -8,8 +9,6 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public abstract class BaseRedis<T> {
@@ -21,7 +20,7 @@ public abstract class BaseRedis<T> {
     protected  HashOperations<String, String, T> hashOperations;
 
     @Resource
-    protected ValueOperations<String, Object> valueOperations;
+    protected  ValueOperations<String, Object> valueOperations;
 
     protected abstract String getRedisKey();
 
@@ -32,7 +31,6 @@ public abstract class BaseRedis<T> {
      * @return
      */
     public double decr(String key, double by){
-        System.out.println("写入写入写入写入写入写入写入写入写入");
         return redisTemplate.opsForValue().increment(key, -by);
     }
 

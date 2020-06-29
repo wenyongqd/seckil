@@ -33,7 +33,7 @@ public class RegisterApiController extends BaseApiController {
 
     @PostMapping(value = "/registerAPI",consumes = "application/json")
     @CrossOrigin(origins = "http://localhost:8080/api", allowCredentials = "true")
-    public ResponseEntity<?> registerUser(@RequestBody User user, BindingResult result){
+    public Result<Object> registerUser(@RequestBody User user, BindingResult result){
         // Validate passwords match
 
         String salt = "alex";
@@ -45,7 +45,7 @@ public class RegisterApiController extends BaseApiController {
 
         User newUser = userService.saveUser(user);
 
-        return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+        return Result.success();
     }
 
 }

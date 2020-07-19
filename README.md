@@ -1,3 +1,3 @@
 # seckil_backend
 
-![image](static/img/socialApp.gif)
+![image](https://github.com/wenyongqd/seckil_backend/tree/master/src/main/resources/static/img/socialApp.gif)

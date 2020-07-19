@@ -30,6 +30,7 @@ public class LoginApiController extends BaseApiController {
     public UserService userService;
 
 
+    @CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
     @RequestMapping(value = "/login")
     public Result<Object> login(@ModelAttribute(value = "user") @Valid User user, BindingResult bindingResult, HttpSession session, Model model, String code, HttpServletResponse response) {
         log.info("username="+user.getUsername()+";password="+user.getPassword());

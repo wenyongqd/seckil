@@ -26,7 +26,7 @@ public class KafkaConsumer {
     @KafkaListener(id="seconds-kill", topics = "test", groupId = "seconds-kill")
     public void listener(ConsumerRecord<?, ?> record) throws InterruptedException {
 
-        new Thread().sleep(2000);
+        new Thread().sleep(2500);
         System.out.println("接收消息：" + record.value().toString());
         String[] messages = record.value().toString().split(",");
         String courseNo  = messages[0];

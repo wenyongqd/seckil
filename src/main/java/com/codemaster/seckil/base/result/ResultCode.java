@@ -3,15 +3,15 @@ package com.codemaster.seckil.base.result;
 public enum ResultCode {
 
     // 秒课错误: 500100 - 500199
-    SECKILL_LINE_UP(500100, "排队中"),
-    SECKILL_NO_QUOTE(500101, "非常抱歉该课程名额已满，请联系小姐姐。"),
-    SECKILL_BOUGHT(500102, "你已购买该课程，请去订单页面查看。"),
+    SECKILL_LINE_UP(500100, "You are lining up..."),
+    SECKILL_NO_QUOTE(500101, "Your are in the waiting lists for this course, any questions please contact staff."),
+    SECKILL_BOUGHT(500102, "You have bought this course, please check in orders"),
     SECKILL_PATH_ERROR(500104, "你的请求地址不正确，请联系小姐姐。"),
-    SECKILL_IP_OUTMAX(500105, "你的请求过于频繁，请稍后再试。"),
+    SECKILL_IP_OUTMAX(500105, "Your requests are too frequent, please take a rest."),
 
-    SUCCESS(200, "成功"),
-    FAIL(500, "失败"),
-    USER_LOGIN_ERROR(500201, "登录失败，用户名或密码出错，请重新输入");
+    SUCCESS(200, "Success"),
+    FAIL(500, "Error"),
+    USER_LOGIN_ERROR(500201, "Incorrect user name or password, please try again.");
 
 
 

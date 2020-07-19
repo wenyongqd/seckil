@@ -1,9 +1,13 @@
 # seckil_backend
 
-![](https://github.com/wenyongqd/seckil_backend/blob/master/src/main/resources/static/img/seckill.gif)
+This project simulate the hign concurrency scenario, it includes technologies below:
 
- 
-<img src="ttps://github.com/wenyongqd/seckil_backend/blob/master/src/main/resources/static/img/seckill.gif" width="200" height="200" alt="抖音小程序"/><br/>
+- Build a full stack project using Spring Boot in backend, Vue.js and Redux on the front end
+- Implement rack-attack (based on Redis) to limit robots-access and different API requests
+- Use two times MD5 (password encryption) and distributed session to implement register and login function
+- Use Redis and Kafka for asynchronous communication to optimize seckill system
+
+![](https://github.com/wenyongqd/seckil_backend/blob/master/src/main/resources/static/img/seckill.gif)
 
 ## Dependent frameworks and packages
 
@@ -54,7 +58,7 @@ This project need java v11+.
 #### Clone repository
 
 ```bash
-git clone https://github.com/jaggerwang/spring-boot-in-practice.git && cd spring-boot-in-practice
+https://github.com/wenyongqd/seckil_backend.git
 ```
 
-#### Prepare mysql and redis service
+#### Prepare mysql, kafka, redis and zookeeper service

@@ -1,11 +1,11 @@
 # seckil_backend
 
-This project simulate the hign concurrency scenario, it includes technologies below:
+This project simulate the hign concurrency scenario, it includes the following technologies:
 
-- Build a full stack project using Spring Boot in backend, Vue.js and Redux on the front end
-- Implement rack-attack (based on Redis) to limit robots-access and different API requests
-- Use two times MD5 (password encryption) and distributed session to implement register and login function
-- Use Redis and Kafka for asynchronous communication to optimize seckill system
+- Build a full stack project using **Spring Boot** in backend, **Vue.js** and Redux on the front end
+- Implement rack-attack (based on **Redis**) to limit robots-access and different API requests
+- Use two times **MD5** (password encryption) and distributed session to implement register and login function
+- Use Redis and **Kafka** for asynchronous communication to optimize seckill system
 
 ![](https://github.com/wenyongqd/seckil_backend/blob/master/src/main/resources/static/img/seckill.gif)
 
